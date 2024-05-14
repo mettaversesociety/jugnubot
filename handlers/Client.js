@@ -13,6 +13,9 @@ const { SoundCloudPlugin } = require("@distube/soundcloud");
 const { filters, options } = require("../settings/config");
 const { YtDlpPlugin } = require("@distube/yt-dlp");
 const { StreamType } = require("distube");
+const ffmpeg = require("ffmpeg-static");
+
+process.env.FFMPEG_BINARY = ffmpeg;
 
 class JUGNU extends Client {
   constructor() {
@@ -52,10 +55,13 @@ class JUGNU extends Client {
     this.temp = new Collection();
     this.config = require("../settings/config");
     this.distube = new Distube(this, {
+      ffmpeg: {
+        path: ffmpeg,
+      },
       leaveOnEmpty: false, // Leave voice channel only if manually stopped
       leaveOnFinish: false, // Don't leave after finishing a queue
       leaveOnStop: true, // Leave when the stop command is used
-      searchSongs: 0, // Increase the number of search results to improve user choices
+      searchSongs: 5, // Increase the number of search results to improve user choices
       emitNewSongOnly: true, // Emit 'playSong' event only when a new song starts playing
       directLink: true, // Direct link for youtube
       emptyCooldown: 0, // Reduce cooldown for empty queue

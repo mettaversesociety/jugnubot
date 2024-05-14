@@ -10,8 +10,8 @@ client.once("ready", async () => {
 
     // Set bot activity
     client.user.setActivity({
-      name: `By @kabirjaipal`,
-      type: ActivityType.Watching,
+      name: `It's all good`,
+      type: ActivityType.Custom,
     });
 
     // Load database
